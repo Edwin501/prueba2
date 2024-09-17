@@ -1,0 +1,11 @@
+def devial(A,B,C):
+    return eval ("a*b**B/A-C*B**A-B/A+C-B")
+
+A=int(input("digite el valor de A:"))
+B=int(input("digite el valor de B:"))
+C=int(input("digite el valor de c:"))
+f=eval("a*b**B/A-C*B**A-B/A+C-B")
+print(f"El resultado es:[devial(A,B,C)]")
+if op==8:
+    break
+ 

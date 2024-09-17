@@ -1,0 +1,238 @@
+CREATE SCHEMA dbo;
+-- kapurganaa.dbo.Permisos definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.Permisos;
+
+CREATE TABLE kapurganaa.dbo.Permisos (
+	IdPermisos int IDENTITY(1,1) NOT NULL,
+	NombrePermiso varchar(100) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	EstadoPermisos varchar(50) COLLATE Modern_Spanish_CI_AS NULL,
+	CONSTRAINT PK_Permisos_CE7ED38D33939B5A PRIMARY KEY (IdPermisos)
+);
+
+
+-- kapurganaa.dbo.Roles definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.Roles;
+
+CREATE TABLE kapurganaa.dbo.Roles (
+	IdRol int IDENTITY(1,1) NOT NULL,
+	Nombre varchar(100) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	CONSTRAINT PK_Roles_2A49584C97EB5004 PRIMARY KEY (IdRol)
+);
+
+
+-- kapurganaa.dbo.Servicios definition
+
+-- Drop table
+
+-- DROP TABLE Ros…
+[6:52 p. m., 29/8/2024] Fernando Parr: -- DROP SCHEMA dbo;
+
+CREATE SCHEMA dbo;
+-- kapurganaa.dbo.Permisos definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.Permisos;
+
+CREATE TABLE kapurganaa.dbo.Permisos (
+	IdPermisos int IDENTITY(1,1) NOT NULL,
+	NombrePermiso varchar(100) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	EstadoPermisos varchar(50) COLLATE Modern_Spanish_CI_AS NULL,
+	CONSTRAINT PK_Permisos_CE7ED38D33939B5A PRIMARY KEY (IdPermisos)
+);
+
+
+-- kapurganaa.dbo.Roles definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.Roles;
+
+CREATE TABLE kapurganaa.dbo.Roles (
+	IdRol int IDENTITY(1,1) NOT NULL,
+	Nombre varchar(100) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	CONSTRAINT PK_Roles_2A49584C97EB5004 PRIMARY KEY (IdRol)
+);
+
+
+-- kapurganaa.dbo.Servicios definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.Servicios;
+
+CREATE TABLE kapurganaa.dbo.Servicios (
+	IdServicio int IDENTITY(1,1) NOT NULL,
+	NombreServicio varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	DescripcionServicio varchar(500) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	PrecioServicio decimal(10,2) NOT NULL,
+	EstadoServicio varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	CONSTRAINT PK_Servicio_2DCCF9A2D071E765 PRIMARY KEY (IdServicio)
+);
+
+
+-- kapurganaa.dbo.TiposHabitaciones definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.TiposHabitaciones;
+
+CREATE TABLE kapurganaa.dbo.TiposHabitaciones (
+	IdTipoHabitacion int IDENTITY(1,1) NOT NULL,
+	Nombre varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	Descripcion varchar(500) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	CONSTRAINT PK_TipoHabi_AB75E87CE4CA9061 PRIMARY KEY (IdTipoHabitacion)
+);
+
+
+-- kapurganaa.dbo.Habitaciones definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.Habitaciones;
+
+CREATE TABLE kapurganaa.dbo.Habitaciones (
+	IdHabitacion int IDENTITY(1,1) NOT NULL,
+	NorHabitacion varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	Descripcion varchar(500) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	EstadoHabitacion varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	PrecioHabitacion decimal(10,2) NOT NULL,
+	IdTipoHabitacion int NULL,
+	CONSTRAINT PK_Habitaci_8BBBF90135355A80 PRIMARY KEY (IdHabitacion),
+	CONSTRAINT FK_HabitacioIdTip_40C49C62 FOREIGN KEY (IdTipoHabitacion) REFERENCES kapurganaa.dbo.TiposHabitaciones(IdTipoHabitacion)
+);
+
+
+-- kapurganaa.dbo.Paquetes definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.Paquetes;
+
+CREATE TABLE kapurganaa.dbo.Paquetes (
+	IdPaquete int IDENTITY(1,1) NOT NULL,
+	NombrePaquete varchar(100) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	Descripcion varchar(500) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	PrecioTotal decimal(10,2) NOT NULL,
+	Estado varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	IdHabitacion int NULL,
+	CONSTRAINT PK_Paquetes_DE278F8B3C633C0E PRIMARY KEY (IdPaquete),
+	CONSTRAINT FK_PaquetesIdHabi_43A1090D FOREIGN KEY (IdHabitacion) REFERENCES kapurganaa.dbo.Habitaciones(IdHabitacion)
+);
+
+
+-- kapurganaa.dbo.PaquetesServicios definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.PaquetesServicios;
+
+CREATE TABLE kapurganaa.dbo.PaquetesServicios (
+	IdPaquetesServicios int IDENTITY(1,1) NOT NULL,
+	IdServicio int NOT NULL,
+	IdPaquete int NOT NULL,
+	CONSTRAINT PK_Paquetes_12550DDE56B46214 PRIMARY KEY (IdPaquetesServicios),
+	CONSTRAINT FK_PaquetesSIdPaq_5B78929E FOREIGN KEY (IdPaquete) REFERENCES kapurganaa.dbo.Paquetes(IdPaquete),
+	CONSTRAINT FK_PaquetesSIdSer_5A846E65 FOREIGN KEY (IdServicio) REFERENCES kapurganaa.dbo.Servicios(IdServicio)
+);
+
+
+-- kapurganaa.dbo.Personas definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.Personas;
+
+CREATE TABLE kapurganaa.dbo.Personas (
+	IdPersonas int IDENTITY(1,1) NOT NULL,
+	Nombres varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	Apellidos varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	TipoDocumento varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	NroDocumento varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	Edad int NOT NULL,
+	Celular varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	FechaNacimiento date NOT NULL,
+	IdRol int NULL,
+	CONSTRAINT PK_Personas_05A9201249DCEBE4 PRIMARY KEY (IdPersonas),
+	CONSTRAINT FK_PersonasIdRol_36470DEF FOREIGN KEY (IdRol) REFERENCES kapurganaa.dbo.Roles(IdRol)
+);
+
+
+-- kapurganaa.dbo.RolesPermisos definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.RolesPermisos;
+
+CREATE TABLE kapurganaa.dbo.RolesPermisos (
+	IdRolesPermisos int IDENTITY(1,1) NOT NULL,
+	Estado varchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	IdRol int NULL,
+	IdPermisos int NULL,
+	CONSTRAINT PK_RolesPer_AAB7C825BDE4691D PRIMARY KEY (IdRolesPermisos),
+	CONSTRAINT FK_RolesPermIdPer_336AA144 FOREIGN KEY (IdPermisos) REFERENCES kapurganaa.dbo.Permisos(IdPermisos),
+	CONSTRAINT FK_RolesPermIdRol_32767D0B FOREIGN KEY (IdRol) REFERENCES kapurganaa.dbo.Roles(IdRol)
+);
+
+
+-- kapurganaa.dbo.Usuarios definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.Usuarios;
+
+CREATE TABLE kapurganaa.dbo.Usuarios (
+	IdUsuario int IDENTITY(1,1) NOT NULL,
+	CorreoUsuario nvarchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	ClaveUsuario nvarchar(50) COLLATE Modern_Spanish_CI_AS NOT NULL,
+	IdPersonas int NULL,
+	IdRol int NULL,
+	CONSTRAINT PK_Usuarios_EAEBAC8F26C4982E PRIMARY KEY (IdUsuario),
+	CONSTRAINT FK_Usuarios_IdRol FOREIGN KEY (IdRol) REFERENCES kapurganaa.dbo.Roles(IdRol),
+	CONSTRAINT FK_UsuariosIdPers_39237A9A FOREIGN KEY (IdPersonas) REFERENCES kapurganaa.dbo.Personas(IdPersonas)
+);
+
+
+-- kapurganaa.dbo.Reservas definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.Reservas;
+
+CREATE TABLE kapurganaa.dbo.Reservas (
+	IdReserva int IDENTITY(1,1) NOT NULL,
+	FechaReserva datetime NOT NULL,
+	FechaInicio datetime NOT NULL,
+	FechaFin datetime NOT NULL,
+	NroPersonas int NOT NULL,
+	MontoTotal decimal(10,2) NULL,
+	Abono decimal(10,2) NULL,
+	EstadoReserva varchar(50) COLLATE Modern_Spanish_CI_AS NULL,
+	IdUsuario int NULL,
+	IdPaquete int NULL,
+	CONSTRAINT PK_Reservas_0E49C69DC063F3AE PRIMARY KEY (IdReserva),
+	CONSTRAINT FK_ReservasIdPaqu_4A4E069C FOREIGN KEY (IdPaquete) REFERENCES kapurganaa.dbo.Paquetes(IdPaquete),
+	CONSTRAINT FK_ReservasIdUsua_4959E263 FOREIGN KEY (IdUsuario) REFERENCES kapurganaa.dbo.Usuarios(IdUsuario)
+);
+
+
+-- kapurganaa.dbo.ReservasServicios definition
+
+-- Drop table
+
+-- DROP TABLE kapurganaa.dbo.ReservasServicios;
+
+CREATE TABLE kapurganaa.dbo.ReservasServicios (
+	IdReservasServicios int IDENTITY(1,1) NOT NULL,
+	IdServicio int NULL,
+	IdReserva int NULL,
+	CONSTRAINT PK_Reservas_CFBB9AECBBCE5D9C PRIMARY KEY (IdReservasServicios),
+	CONSTRAINT FK_ReservasSIdRes_68D28DBC FOREIGN KEY (IdReserva) REFERENCES kapurganaa.dbo.Reservas(IdReserva),
+	CONSTRAINT FK_ReservasSIdSer_67DE6983 FOREIGN KEY (IdServicio) REFERENCES kapurganaa.dbo.Servicios(IdServicio)
+);
